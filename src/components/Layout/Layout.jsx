@@ -1,6 +1,4 @@
-// import React from "react";
-
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Header, StyledNavLink } from "./Layout.styled";
 
 const Layout = () => {

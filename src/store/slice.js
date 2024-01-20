@@ -5,12 +5,13 @@ const slice = createSlice({
     name: "adverts",
     initialState: {
         adverts: [],
+        loadMore: true,
     },
+
     extraReducers: builder => {
         builder.addCase(getAdvertsThunk.fulfilled, (state, { payload }) => {
-            state.adverts = payload
-            console.log(payload);
-
+            if (payload.length < 12) { state.loadMore = false }
+            state.adverts = [...state.adverts, ...payload]
         })
     }
 })

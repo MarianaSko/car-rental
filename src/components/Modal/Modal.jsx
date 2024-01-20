@@ -1,11 +1,8 @@
-// import React from "react";
-
 import { nanoid } from "@reduxjs/toolkit";
 import { getCityAndCountry } from "../../helpers/helpers";
 import { Backdrop, CloseBtn, ModalBackground } from "./Modal.styled";
 import { useCallback, useEffect } from "react";
 import modalBtn from "../../images/closeBtn.svg";
-import { Button } from "../App/App.styled";
 
 const Modal = ({ advert, close }) => {
   const {
@@ -85,7 +82,7 @@ const Modal = ({ advert, close }) => {
           <li>Mileage: {mileage}</li>
           <li>Price: {rentalPrice}</li>
         </ul>
-        <Button>Rental car</Button>
+        <a href="tel:+380730000000">Rental car</a>
       </ModalBackground>
     </Backdrop>
   );

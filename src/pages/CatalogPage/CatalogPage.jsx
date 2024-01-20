@@ -1,29 +1,44 @@
-// import React from "react";
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAdvertsThunk } from "../../store/thunk";
-import { selectAdverts } from "../../store/selectors";
+import { selectAdverts, selectLoadMore } from "../../store/selectors";
 import Advert from "../../components/Advert/Advert";
 import { CatalogWrapper } from "./CatalogPage.styled";
 import { Container } from "../../components/App/App.styled";
+import Filter from "../../components/Filter/Filter";
+import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
 
 const CatalogPage = () => {
   const adverts = useSelector(selectAdverts);
+  const isLoadMore = useSelector(selectLoadMore);
   const dispatch = useDispatch();
+  const [filteredAdverts, setFilteredAdverts] = useState(adverts);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getAdvertsThunk());
-  }, [dispatch]);
+    dispatch(getAdvertsThunk(page));
+  }, [dispatch, page]);
 
-  console.log(adverts);
+  useEffect(() => {
+    setFilteredAdverts(adverts);
+  }, [adverts]);
+
+  function onLoadMoreBtnClick() {
+    const nextPage = page + 1;
+    setPage(nextPage);
+  }
+
   return (
     <Container>
+      <Filter filteredAdverts={setFilteredAdverts}></Filter>
       <CatalogWrapper>
-        {adverts.map((advert) => (
+        {filteredAdverts?.map((advert) => (
           <Advert advert={advert} key={advert.id}></Advert>
         ))}
       </CatalogWrapper>
+      {isLoadMore && (
+        <LoadMoreBtn downloadMore={onLoadMoreBtnClick}></LoadMoreBtn>
+      )}
     </Container>
   );
 };

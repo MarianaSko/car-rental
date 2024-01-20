@@ -7,6 +7,7 @@ export const Button = styled.button`
   font-size: 14px;
   font-weight: 600;
   line-height: 1.43;
+
   &:hover,
   &:focus,
   &:active {
@@ -16,4 +17,9 @@ export const Button = styled.button`
 
 export const Container = styled.div`
   padding: 0 128px;
+  padding-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;

@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const Header = styled.header`
   background-color: #3470ff;
-  /* height: 40px; */
   padding: 0 128px;
   display: flex;
   gap: 20px;
@@ -24,6 +23,7 @@ export const StyledNavLink = styled(NavLink)`
   text-align: center;
   border-radius: 8px;
   transition: 200ms ease-in-out;
+
   &:active,
   &:hover,
   &:focus {

@@ -1,5 +1,3 @@
-// import React from "react";
-
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import { getCityAndCountry } from "../../helpers/helpers";
@@ -28,9 +26,6 @@ const Advert = ({ advert }) => {
     functionalities,
   } = advert;
 
-  // const addressParts = address.split(", ");
-  // const city = addressParts[addressParts.length - 2];
-  // const country = addressParts[addressParts.length - 1];
   const shortenedAddress = getCityAndCountry(address);
   const { city, country } = shortenedAddress;
 

@@ -7,11 +7,6 @@ export const Backdrop = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(18, 20, 23, 0.5);
-  /* backdrop-filter: blur(45px);
-  z-index: 20; */
-  /* @media only screen and (max-width: 540px) {
-    backdrop-filter: blur(50px); */
-  /* } */
 `;
 
 export const ModalBackground = styled.div`
@@ -32,6 +27,7 @@ export const ModalBackground = styled.div`
     margin: 0 auto;
     margin-bottom: 14px;
   }
+
   ul {
     display: flex;
     flex-wrap: wrap;
@@ -45,36 +41,49 @@ export const ModalBackground = styled.div`
       font-size: 12px;
     }
   }
+
   h2 + ul {
     width: 277px;
   }
+
   li:not(:last-child)::after {
     content: "|";
     margin-left: 6px;
-    color: rgba(18, 20, 23, 0.1); /* Set the color of the pipe */
+    color: rgba(18, 20, 23, 0.1);
   }
+
   p {
     line-height: 1.43;
     font-size: 14px;
     margin-bottom: 24px;
     width: 461px;
   }
+
   h3 {
     font-size: 14px;
     line-height: 1.43;
     margin-bottom: 8px;
   }
+
   h2 {
     font-size: 18px;
     font-weight: 500;
     line-height: 1.33;
     margin-bottom: 8px;
   }
+
   span {
     color: #3470ff;
   }
-  ul + button {
+
+  a {
+    display: inline-block;
+    margin-top: 10px;
+    border-radius: 12px;
+    background: #3470ff;
+    text-decoration: none;
     padding: 12px 50px;
+    color: #fff;
   }
 `;
 

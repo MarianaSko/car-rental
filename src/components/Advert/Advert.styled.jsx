@@ -9,6 +9,7 @@ export const AdvertWrapper = styled.div`
     font-weight: 500;
   }
 `;
+
 export const CatalogList = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -19,10 +20,11 @@ export const CatalogList = styled.ul`
     color: rgba(18, 20, 23, 0.5);
     font-size: 12px;
   }
+
   li:not(:last-child)::after {
     content: "|";
     margin-left: 6px;
-    color: rgba(18, 20, 23, 0.1); /* Set the color of the pipe */
+    color: rgba(18, 20, 23, 0.1);
   }
 `;
 
@@ -38,11 +40,13 @@ export const PriceWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 8px;
+
   p {
     font-size: 16px;
     font-weight: 500;
   }
 `;
+
 export const AdvertItem = styled.li`
   width: 274px;
   height: 426px;

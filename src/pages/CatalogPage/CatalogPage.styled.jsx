@@ -5,4 +5,6 @@ export const CatalogWrapper = styled.ul`
   flex-wrap: wrap;
   column-gap: 29px;
   row-gap: 50px;
+  align-items: center;
+  justify-content: center;
 `;
