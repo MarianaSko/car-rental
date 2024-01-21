@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectAdverts,
-  selectAllAdverts,
-  selectLoadMore,
-} from "../../store/selectors";
+import { selectAllAdverts } from "../../store/selectors";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 import { Button } from "../App/App.styled";
@@ -15,11 +11,9 @@ import { getAllAdverts } from "../../store/thunk";
 import { setLoadMore } from "../../store/slice";
 
 const Filter = ({ filteredAdverts, isFiltered }) => {
-  // const adverts = useSelector(selectAdverts);
   const allAdverts = useSelector(selectAllAdverts);
   const [brandsList, setBrandsList] = useState([]);
   const dispatch = useDispatch();
-  const isLoadMore = useSelector(selectLoadMore);
 
   const options = brandsList.map((brand) => {
     return { value: brand, label: brand };

@@ -1,7 +1,7 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { getCityAndCountry } from "../../helpers/helpers";
 import { Backdrop, CloseBtn, ModalBackground } from "./Modal.styled";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import modalBtn from "../../images/closeBtn.svg";
 
 const Modal = ({ advert, close }) => {
@@ -26,6 +26,20 @@ const Modal = ({ advert, close }) => {
   const shortenedAddress = getCityAndCountry(address);
   const { city, country } = shortenedAddress;
   const rentalConditionsArray = rentalConditions.split("\n");
+  const ref = useRef();
+
+  function onBackDropClick(e) {
+    if (e.target === ref.current) {
+      close(false);
+    }
+  }
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   function useEscapeKey(close) {
     const handleEscKey = useCallback(
@@ -46,7 +60,11 @@ const Modal = ({ advert, close }) => {
   }
 
   return (
-    <Backdrop onKeyDown={useEscapeKey(close)}>
+    <Backdrop
+      onKeyDown={useEscapeKey(close)}
+      onClick={onBackDropClick}
+      ref={ref}
+    >
       <ModalBackground>
         <CloseBtn onClick={() => close(false)}>
           <img alt="" src={modalBtn}></img>
