@@ -3,6 +3,7 @@ import Modal from "../Modal/Modal";
 import { getCityAndCountry } from "../../helpers/helpers";
 import { Button } from "../App/App.styled";
 import favoriteBtn from "../../images/favorite.svg";
+import favoriteChecked from "../../images/favoriteChecked.svg";
 
 import {
   AdvertItem,
@@ -12,9 +13,14 @@ import {
   FavoriteBtn,
   PriceWrapper,
 } from "./Advert.styled";
+import { removeFavorites, setFavorites } from "../../store/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFavorites } from "../../store/selectors";
 
 const Advert = ({ advert }) => {
   const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     year,
@@ -32,12 +38,25 @@ const Advert = ({ advert }) => {
   const shortenedAddress = getCityAndCountry(address);
   const { city, country } = shortenedAddress;
 
+  function onFavoriteBtnClick() {
+    setIsChecked(!isChecked);
+    if (!isChecked) {
+      dispatch(setFavorites(advert));
+    } else {
+      dispatch(removeFavorites(id));
+    }
+  }
+
   return (
     <AdvertWrapper>
       <AdvertItem>
         <CatalogImg src={img} alt={make} />
-        <FavoriteBtn>
-          <img src={favoriteBtn} alt="" />
+        <FavoriteBtn onClick={onFavoriteBtnClick}>
+          {isChecked ? (
+            <img src={favoriteChecked} alt="" />
+          ) : (
+            <img src={favoriteBtn} alt="" />
+          )}
         </FavoriteBtn>
         <PriceWrapper>
           <h2>

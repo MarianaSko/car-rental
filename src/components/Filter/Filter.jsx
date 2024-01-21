@@ -14,6 +14,9 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
   const allAdverts = useSelector(selectAllAdverts);
   const [brandsList, setBrandsList] = useState([]);
   const dispatch = useDispatch();
+  const { register, handleSubmit, control } = useForm({
+    mode: "onChange",
+  });
 
   const options = brandsList.map((brand) => {
     return { value: brand, label: brand };
@@ -45,13 +48,7 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
     getFilteredAdverts();
     dispatch(setLoadMore(false));
     isFiltered(true);
-
-    console.log("hello");
   }
-
-  const { register, handleSubmit, control } = useForm({
-    mode: "onChange",
-  });
 
   return (
     <StyledForm action="" onSubmit={handleSubmit(submit)}>

@@ -7,11 +7,20 @@ const slice = createSlice({
         adverts: [],
         allAdverts: [],
         loadMore: true,
+        favorites: []
     },
     reducers: {
         setLoadMore: (state, { payload }) => {
             state.loadMore = payload;
         },
+        setFavorites: (state, { payload }) => {
+            state.favorites.push(payload)
+            console.log(payload);
+        },
+        removeFavorites: (state, { payload }) => {
+            state.favorites = state.favorites.filter(({ id }) => id !== payload)
+        }
+
     },
 
     extraReducers: builder => {
@@ -23,5 +32,5 @@ const slice = createSlice({
         })
     }
 })
-export const { setLoadMore } = slice.actions
+export const { setLoadMore, setFavorites, removeFavorites } = slice.actions
 export const rootReducer = slice.reducer
