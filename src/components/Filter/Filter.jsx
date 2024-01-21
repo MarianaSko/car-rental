@@ -1,25 +1,38 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectAdverts } from "../../store/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectAdverts,
+  selectAllAdverts,
+  selectLoadMore,
+} from "../../store/selectors";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 import { Button } from "../App/App.styled";
 import DropdownIndicator from "./DropdownIndicator";
 import selectStyle from "./selectStyles";
 import { SelectContainer, StyledForm } from "./Filter.styled";
+import { getAllAdverts } from "../../store/thunk";
+import { setLoadMore } from "../../store/slice";
 
-const Filter = ({ filteredAdverts }) => {
-  const adverts = useSelector(selectAdverts);
+const Filter = ({ filteredAdverts, isFiltered }) => {
+  // const adverts = useSelector(selectAdverts);
+  const allAdverts = useSelector(selectAllAdverts);
   const [brandsList, setBrandsList] = useState([]);
+  const dispatch = useDispatch();
+  const isLoadMore = useSelector(selectLoadMore);
 
   const options = brandsList.map((brand) => {
     return { value: brand, label: brand };
   });
 
   useEffect(() => {
+    dispatch(getAllAdverts());
+  }, [dispatch]);
+
+  useEffect(() => {
     function getArrayOfBrands() {
       const brands = [];
-      adverts.map((advert) => {
+      allAdverts.map((advert) => {
         brands.push(advert.make);
       });
       const uniqueBrands = [...new Set(brands)];
@@ -27,15 +40,18 @@ const Filter = ({ filteredAdverts }) => {
     }
 
     getArrayOfBrands();
-  }, [adverts]);
+  }, [allAdverts]);
 
   function submit(e) {
     function getFilteredAdverts() {
-      const filtered = adverts.filter(({ make }) => make === e.brand);
+      const filtered = allAdverts.filter(({ make }) => make === e.brand);
       filteredAdverts(filtered);
     }
 
     getFilteredAdverts();
+    dispatch(setLoadMore(false));
+    isFiltered(true);
+
     console.log("hello");
   }
 

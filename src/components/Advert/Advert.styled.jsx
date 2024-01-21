@@ -52,9 +52,20 @@ export const AdvertItem = styled.li`
   height: 426px;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   button {
     padding: 12px 99px;
     margin-top: auto;
   }
+`;
+
+export const FavoriteBtn = styled.button`
+  padding: 0 !important;
+  margin-top: 0 !important;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
 `;

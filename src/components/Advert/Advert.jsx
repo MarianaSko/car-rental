@@ -2,11 +2,14 @@ import { useState } from "react";
 import Modal from "../Modal/Modal";
 import { getCityAndCountry } from "../../helpers/helpers";
 import { Button } from "../App/App.styled";
+import favoriteBtn from "../../images/favorite.svg";
+
 import {
   AdvertItem,
   AdvertWrapper,
   CatalogImg,
   CatalogList,
+  FavoriteBtn,
   PriceWrapper,
 } from "./Advert.styled";
 
@@ -33,6 +36,9 @@ const Advert = ({ advert }) => {
     <AdvertWrapper>
       <AdvertItem>
         <CatalogImg src={img} alt={make} />
+        <FavoriteBtn>
+          <img src={favoriteBtn} alt="" />
+        </FavoriteBtn>
         <PriceWrapper>
           <h2>
             {make}, <span>{model}</span>, {year}
