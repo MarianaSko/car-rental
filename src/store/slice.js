@@ -14,7 +14,12 @@ const slice = createSlice({
             state.loadMore = payload;
         },
         setFavorites: (state, { payload }) => {
-            state.favorites.push(payload)
+            // state.favorites.push(payload)
+            // state.favorites = [...state.favorites, payload];
+            // const existingFavorite = state.favorites.find(({ id }) => id === payload.id);
+            // if (!existingFavorite) {
+            state.favorites = [...state.favorites, payload];
+            // }
             console.log(payload);
         },
         removeFavorites: (state, { payload }) => {

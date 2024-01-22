@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import { getCityAndCountry } from "../../helpers/helpers";
 import { Button } from "../App/App.styled";
@@ -18,10 +18,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectFavorites } from "../../store/selectors";
 
 const Advert = ({ advert }) => {
-  const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-  const dispatch = useDispatch();
-
   const {
     year,
     img,
@@ -34,19 +30,30 @@ const Advert = ({ advert }) => {
     id,
     functionalities,
   } = advert;
+  const favorites = useSelector(selectFavorites);
+  const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(favorites.includes(id));
+
+  // const [isChecked, setIsChecked] = useState(() => {
+  //   return favorites.some((favorite) => favorite.id === id);
+  // });
+
+  const dispatch = useDispatch();
 
   const shortenedAddress = getCityAndCountry(address);
   const { city, country } = shortenedAddress;
 
+  useEffect(() => {
+    setIsChecked(favorites.some((favorite) => favorite.id === id));
+  }, [favorites, id]);
+
   function onFavoriteBtnClick() {
-    setIsChecked(!isChecked);
-    if (!isChecked) {
-      dispatch(setFavorites(advert));
-    } else {
+    if (isChecked) {
       dispatch(removeFavorites(id));
+    } else {
+      dispatch(setFavorites(advert));
     }
   }
-
   return (
     <AdvertWrapper>
       <AdvertItem>
