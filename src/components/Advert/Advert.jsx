@@ -34,10 +34,6 @@ const Advert = ({ advert }) => {
   const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(favorites.includes(id));
 
-  // const [isChecked, setIsChecked] = useState(() => {
-  //   return favorites.some((favorite) => favorite.id === id);
-  // });
-
   const dispatch = useDispatch();
 
   const shortenedAddress = getCityAndCountry(address);

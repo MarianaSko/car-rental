@@ -6,7 +6,13 @@ import Select from "react-select";
 import { Button } from "../App/App.styled";
 import DropdownIndicator from "./DropdownIndicator";
 import selectStyle from "./selectStyles";
-import { SelectContainer, StyledForm } from "./Filter.styled";
+import {
+  InputWrapper,
+  SelectContainer,
+  StyledForm,
+  StyledPlaceholderOne,
+  StyledPlaceholderTwo,
+} from "./Filter.styled";
 import { getAllAdverts } from "../../store/thunk";
 import { setLoadMore } from "../../store/slice";
 import { getArrayOfPrices } from "../../helpers/helpers";
@@ -42,11 +48,20 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
 
   function submit(e) {
     function getFilteredAdverts() {
-      if (e.price) {
-        const filtered = allAdverts.filter(
-          ({ make, rentalPrice }) =>
-            make === e.brand && Number(rentalPrice.replace("$", "")) <= e.price
-        );
+      if (e.price || e.from || e.to) {
+        const filtered = allAdverts.filter(({ make, rentalPrice, mileage }) => {
+          const isBrandMatch = make === e.brand;
+          const isPriceMatch =
+            !e.price || Number(rentalPrice.replace("$", "")) <= e.price;
+          const isMileageMatch =
+            (!e.from && !e.to) ||
+            (!e.from && mileage <= e.to) ||
+            (!e.to && mileage >= e.from) ||
+            (mileage >= e.from && mileage <= e.to);
+
+          return isBrandMatch && isPriceMatch && isMileageMatch;
+        });
+
         filteredAdverts(filtered);
       } else {
         const filtered = allAdverts.filter(({ make }) => make === e.brand);
@@ -93,7 +108,6 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
         <Controller
           name="price"
           control={control}
-          // rules={{ required: true }}
           render={({ field }) => (
             <Select
               name="price"
@@ -111,6 +125,23 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
             />
           )}
         />
+      </SelectContainer>
+      <SelectContainer>
+        <label id="mileageLabel">Сar mileage / km</label>
+        <InputWrapper>
+          <input
+            type="number"
+            {...register("from")}
+            aria-labelledby="mileageLabel"
+          />
+          <StyledPlaceholderOne>From</StyledPlaceholderOne>
+          <input
+            type="number"
+            {...register("to")}
+            aria-labelledby="mileageLabel"
+          />
+          <StyledPlaceholderTwo>To</StyledPlaceholderTwo>
+        </InputWrapper>
       </SelectContainer>
       <Button type="submit">Search</Button>
     </StyledForm>

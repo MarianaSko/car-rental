@@ -86,6 +86,7 @@ export const ModalBackground = styled.div`
     text-decoration: none;
     padding: 12px 50px;
     color: #fff;
+    transition: 200ms ease-in-out;
   }
 
   a:hover,

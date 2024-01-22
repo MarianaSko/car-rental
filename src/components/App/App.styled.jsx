@@ -7,6 +7,7 @@ export const Button = styled.button`
   font-size: 14px;
   font-weight: 600;
   line-height: 1.43;
+  transition: 200ms ease-in-out;
 
   &:hover,
   &:focus,
@@ -22,4 +23,5 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  position: relative;
 `;

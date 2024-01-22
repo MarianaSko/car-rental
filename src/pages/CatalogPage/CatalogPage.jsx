@@ -19,7 +19,7 @@ const CatalogPage = () => {
   const allAdverts = useSelector(selectAllAdverts);
   const isLoadMore = useSelector(selectLoadMore);
   const dispatch = useDispatch();
-  const [filteredAdverts, setFilteredAdverts] = useState(adverts);
+  const [filteredAdverts, setFilteredAdverts] = useState(null);
   const [page, setPage] = useState(1);
   const [isFiltered, setIsFiltered] = useState(false);
 
