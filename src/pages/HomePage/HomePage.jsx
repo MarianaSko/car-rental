@@ -1,7 +1,6 @@
 import { Container } from "../../components/App/App.styled";
 import car from "../../images/backgroundCar.png";
 import {
-  CarImg,
   DescriptionWrapper,
   HomeWrapper,
   StyledDescription,
@@ -24,7 +23,7 @@ const HomePage = () => {
             vehicle for your needs and ensure unforgettable travel experiences.
           </StyledDescription>
         </DescriptionWrapper>
-        <CarImg src={car} alt="Red Car" width="100%" height="100%" />
+        <img src={car} alt="Red Car" width="100%" height="100%" />
       </HomeWrapper>
       <StyledLink to="/catalog">Get Started</StyledLink>
     </Container>
