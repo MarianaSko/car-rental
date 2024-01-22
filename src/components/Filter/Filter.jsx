@@ -9,6 +9,7 @@ import selectStyle from "./selectStyles";
 import { SelectContainer, StyledForm } from "./Filter.styled";
 import { getAllAdverts } from "../../store/thunk";
 import { setLoadMore } from "../../store/slice";
+import { getArrayOfPrices } from "../../helpers/helpers";
 
 const Filter = ({ filteredAdverts, isFiltered }) => {
   const allAdverts = useSelector(selectAllAdverts);
@@ -41,14 +42,24 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
 
   function submit(e) {
     function getFilteredAdverts() {
-      const filtered = allAdverts.filter(({ make }) => make === e.brand);
-      filteredAdverts(filtered);
+      if (e.price) {
+        const filtered = allAdverts.filter(
+          ({ make, rentalPrice }) =>
+            make === e.brand && Number(rentalPrice.replace("$", "")) <= e.price
+        );
+        filteredAdverts(filtered);
+      } else {
+        const filtered = allAdverts.filter(({ make }) => make === e.brand);
+        filteredAdverts(filtered);
+      }
     }
 
     getFilteredAdverts();
     dispatch(setLoadMore(false));
     isFiltered(true);
   }
+
+  const prices = getArrayOfPrices();
 
   return (
     <StyledForm action="" onSubmit={handleSubmit(submit)}>
@@ -70,6 +81,30 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
                 IndicatorSeparator: () => null,
               }}
               placeholder="Enter the text"
+              styles={selectStyle}
+              isSearchable={false}
+              onChange={(option) => field.onChange(option.value)}
+            />
+          )}
+        />
+      </SelectContainer>
+      <SelectContainer>
+        <label id="priceLabel">Price/ 1 hour</label>
+        <Controller
+          name="price"
+          control={control}
+          // rules={{ required: true }}
+          render={({ field }) => (
+            <Select
+              name="price"
+              {...register("price")}
+              aria-labelledby="priceLabel"
+              options={prices}
+              components={{
+                DropdownIndicator,
+                IndicatorSeparator: () => null,
+              }}
+              placeholder="To $"
               styles={selectStyle}
               isSearchable={false}
               onChange={(option) => field.onChange(option.value)}

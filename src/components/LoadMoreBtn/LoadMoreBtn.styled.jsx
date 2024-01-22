@@ -6,4 +6,8 @@ export const StyledLoadMore = styled.button`
   font-weight: 500;
   margin: 0 auto;
   margin-top: 100px;
+  &:hover,
+  &:focus {
+    color: #0b44cd;
+  }
 `;

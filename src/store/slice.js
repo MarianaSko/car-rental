@@ -7,24 +7,20 @@ const slice = createSlice({
         adverts: [],
         allAdverts: [],
         loadMore: true,
-        favorites: []
+        favorites: [],
     },
     reducers: {
         setLoadMore: (state, { payload }) => {
             state.loadMore = payload;
         },
         setFavorites: (state, { payload }) => {
-            // state.favorites.push(payload)
-            // state.favorites = [...state.favorites, payload];
-            // const existingFavorite = state.favorites.find(({ id }) => id === payload.id);
-            // if (!existingFavorite) {
             state.favorites = [...state.favorites, payload];
-            // }
+
             console.log(payload);
         },
         removeFavorites: (state, { payload }) => {
             state.favorites = state.favorites.filter(({ id }) => id !== payload)
-        }
+        },
 
     },
 

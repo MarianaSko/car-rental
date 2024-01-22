@@ -7,7 +7,8 @@ const selectStyle = {
         borderRadius: "14px",
         boxShadow: "none",
         cursor: "pointer",
-        width: "224px",
+        maxWidth: "224px",
+        minWidth: '125px',
         height: "48px",
     }),
     singleValue: (styles) => ({
@@ -26,7 +27,8 @@ const selectStyle = {
     }),
     menu: (styles) => ({
         ...styles,
-        width: "224px",
+        maxWidth: "224px",
+        minWidth: '125px',
         borderRadius: "14px",
         backgroundColor: "#FFF",
         boxShadow: " 0px 4px 36px 0px rgba(0, 0, 0, 0.02)",

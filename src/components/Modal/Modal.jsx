@@ -23,10 +23,16 @@ const Modal = ({ advert, close }) => {
     mileage,
   } = advert;
 
+  const ref = useRef();
   const shortenedAddress = getCityAndCountry(address);
   const { city, country } = shortenedAddress;
+
   const rentalConditionsArray = rentalConditions.split("\n");
-  const ref = useRef();
+  const age = rentalConditionsArray[0].replace("Minimum age: ", "");
+  const formattedPrice = rentalPrice.replace("$", "");
+  useEffect(() => {
+    console.log(rentalConditionsArray);
+  });
 
   function onBackDropClick(e) {
     if (e.target === ref.current) {
@@ -94,11 +100,18 @@ const Modal = ({ advert, close }) => {
         </ul>
         <h3> Rental conditions:</h3>
         <ul>
-          {rentalConditionsArray.map((condition) => (
-            <li key={nanoid()}>{condition}</li>
-          ))}
-          <li>Mileage: {mileage}</li>
-          <li>Price: {rentalPrice}</li>
+          <li>
+            {" "}
+            Minimum age: <span>{age}</span>
+          </li>
+          <li>{rentalConditionsArray[1]}</li>
+          <li>{rentalConditionsArray[2]}</li>
+          <li>
+            Mileage:<span> {mileage.toLocaleString("en-US")}</span>
+          </li>
+          <li>
+            Price: <span>{formattedPrice}$</span>
+          </li>
         </ul>
         <a href="tel:+380730000000">Rental car</a>
       </ModalBackground>

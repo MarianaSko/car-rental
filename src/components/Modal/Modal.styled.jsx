@@ -40,6 +40,7 @@ export const ModalBackground = styled.div`
     li {
       color: rgba(18, 20, 23, 0.5);
       font-size: 12px;
+      letter-spacing: -0.02em;
     }
   }
 
@@ -85,6 +86,14 @@ export const ModalBackground = styled.div`
     text-decoration: none;
     padding: 12px 50px;
     color: #fff;
+  }
+
+  a:hover,
+  a:focus {
+    background: #0b44cd;
+  }
+  li > span {
+    font-weight: 600;
   }
 `;
 
