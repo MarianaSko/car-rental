@@ -20,16 +20,18 @@ export const DescriptionWrapper = styled.div`
   flex-direction: column;
   gap: 20px;
 `;
+
 export const StyledHeading = styled.h1`
   text-transform: uppercase;
   font-size: 60px;
   line-height: 1.1;
-
   text-align: center;
+
   span {
     color: #3470ff;
   }
 `;
+
 export const StyledLink = styled(NavLink)`
   padding: 12px 99px;
   text-decoration: none;

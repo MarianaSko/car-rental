@@ -8,3 +8,13 @@ export const CatalogWrapper = styled.ul`
   align-items: center;
   justify-content: center;
 `;
+
+export const StyledMessage = styled.p`
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.6;
+
+  span {
+    color: #3470ff;
+  }
+`;

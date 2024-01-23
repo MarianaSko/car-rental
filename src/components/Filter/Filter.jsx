@@ -16,11 +16,13 @@ import {
 import { getAllAdverts } from "../../store/thunk";
 import { setLoadMore } from "../../store/slice";
 import { getArrayOfPrices } from "../../helpers/helpers";
+import { toast } from "react-toastify";
 
 const Filter = ({ filteredAdverts, isFiltered }) => {
   const allAdverts = useSelector(selectAllAdverts);
-  const [brandsList, setBrandsList] = useState([]);
   const dispatch = useDispatch();
+  const [brandsList, setBrandsList] = useState([]);
+
   const { register, handleSubmit, control } = useForm({
     mode: "onChange",
   });
@@ -29,28 +31,35 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
     return { value: brand, label: brand };
   });
 
+  const prices = getArrayOfPrices();
+
   useEffect(() => {
-    dispatch(getAllAdverts());
+    dispatch(getAllAdverts())
+      .unwrap()
+      .catch((err) => {
+        toast.error(err);
+      });
   }, [dispatch]);
 
   useEffect(() => {
-    function getArrayOfBrands() {
-      const brands = [];
-      allAdverts.map((advert) => {
-        brands.push(advert.make);
-      });
-      const uniqueBrands = [...new Set(brands)];
-      setBrandsList(uniqueBrands);
-    }
-
-    getArrayOfBrands();
+    const brands = [];
+    allAdverts.map((advert) => {
+      brands.push(advert.make);
+    });
+    const uniqueBrands = [...new Set(brands)];
+    setBrandsList(uniqueBrands);
   }, [allAdverts]);
 
   function submit(e) {
     function getFilteredAdverts() {
-      if (e.price || e.from || e.to) {
+      if (!e.price && !e.brand && !e.from && !e.to) {
+        toast.warn("Please choose at least one parameter for filtering");
+        return;
+      }
+
+      if (e.price || e.brand || e.from || e.to) {
         const filtered = allAdverts.filter(({ make, rentalPrice, mileage }) => {
-          const isBrandMatch = make === e.brand;
+          const isBrandMatch = !e.brand || make === e.brand;
           const isPriceMatch =
             !e.price || Number(rentalPrice.replace("$", "")) <= e.price;
           const isMileageMatch =
@@ -64,17 +73,14 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
 
         filteredAdverts(filtered);
       } else {
-        const filtered = allAdverts.filter(({ make }) => make === e.brand);
+        const filtered = allAdverts;
         filteredAdverts(filtered);
       }
     }
-
     getFilteredAdverts();
     dispatch(setLoadMore(false));
     isFiltered(true);
   }
-
-  const prices = getArrayOfPrices();
 
   return (
     <StyledForm action="" onSubmit={handleSubmit(submit)}>
@@ -83,10 +89,8 @@ const Filter = ({ filteredAdverts, isFiltered }) => {
         <Controller
           name="brand"
           control={control}
-          rules={{ required: true }}
           render={({ field }) => (
             <Select
-              required
               name="brand"
               {...register("brand")}
               aria-labelledby="brandLabel"

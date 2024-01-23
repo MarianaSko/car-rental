@@ -6,8 +6,10 @@ const slice = createSlice({
     initialState: {
         adverts: [],
         allAdverts: [],
-        loadMore: true,
         favorites: [],
+        isLoading: false,
+        isError: null,
+        loadMore: true,
     },
     reducers: {
         setLoadMore: (state, { payload }) => {
@@ -15,8 +17,6 @@ const slice = createSlice({
         },
         setFavorites: (state, { payload }) => {
             state.favorites = [...state.favorites, payload];
-
-            console.log(payload);
         },
         removeFavorites: (state, { payload }) => {
             state.favorites = state.favorites.filter(({ id }) => id !== payload)
@@ -33,10 +33,25 @@ const slice = createSlice({
             ));
 
             state.adverts = [...state.adverts, ...uniquePayload];
+            state.isLoading = false;
         })
-
+            .addCase(getAdvertsThunk.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(getAdvertsThunk.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                state.isError = payload;
+            })
             .addCase(getAllAdverts.fulfilled, (state, { payload }) => {
-                state.allAdverts = payload
+                state.allAdverts = payload;
+                state.isLoading = false;
+            })
+            .addCase(getAllAdverts.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(getAllAdverts.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                state.isError = payload;
             })
     }
 })

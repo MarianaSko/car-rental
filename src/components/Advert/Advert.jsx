@@ -4,7 +4,6 @@ import { getCityAndCountry } from "../../helpers/helpers";
 import { Button } from "../App/App.styled";
 import favoriteBtn from "../../images/favorite.svg";
 import favoriteChecked from "../../images/favoriteChecked.svg";
-
 import {
   AdvertItem,
   AdvertWrapper,
@@ -30,11 +29,11 @@ const Advert = ({ advert }) => {
     id,
     functionalities,
   } = advert;
+
   const favorites = useSelector(selectFavorites);
+  const dispatch = useDispatch();
   const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(favorites.includes(id));
-
-  const dispatch = useDispatch();
 
   const shortenedAddress = getCityAndCountry(address);
   const { city, country } = shortenedAddress;
@@ -50,6 +49,7 @@ const Advert = ({ advert }) => {
       dispatch(setFavorites(advert));
     }
   }
+
   return (
     <AdvertWrapper>
       <AdvertItem>

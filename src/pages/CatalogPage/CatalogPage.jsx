@@ -7,12 +7,13 @@ import {
   selectLoadMore,
 } from "../../store/selectors";
 import Advert from "../../components/Advert/Advert";
-import { CatalogWrapper } from "./CatalogPage.styled";
+import { CatalogWrapper, StyledMessage } from "./CatalogPage.styled";
 import { Container } from "../../components/App/App.styled";
 import Filter from "../../components/Filter/Filter";
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
 import { StyledLoadMore } from "../../components/LoadMoreBtn/LoadMoreBtn.styled";
 import { setLoadMore } from "../../store/slice";
+import { toast } from "react-toastify";
 
 const CatalogPage = () => {
   const adverts = useSelector(selectAdverts);
@@ -24,7 +25,9 @@ const CatalogPage = () => {
   const [isFiltered, setIsFiltered] = useState(false);
 
   useEffect(() => {
-    dispatch(getAdvertsThunk(page));
+    dispatch(getAdvertsThunk(page))
+      .unwrap()
+      .catch((err) => toast.error(err));
   }, [dispatch, page]);
 
   useEffect(() => {
@@ -50,13 +53,22 @@ const CatalogPage = () => {
         filteredAdverts={setFilteredAdverts}
         isFiltered={setIsFiltered}
       ></Filter>
-      <CatalogWrapper>
-        {filteredAdverts?.map((advert) => (
-          <Advert advert={advert} key={advert.id}></Advert>
-        ))}
-      </CatalogWrapper>
-      {isLoadMore && (
-        <LoadMoreBtn downloadMore={onLoadMoreBtnClick}></LoadMoreBtn>
+      {filteredAdverts?.length === 0 ? (
+        <StyledMessage>
+          We do not have any advertisements matching your{" "}
+          <span>search query</span>!
+        </StyledMessage>
+      ) : (
+        <>
+          <CatalogWrapper>
+            {filteredAdverts?.map((advert) => (
+              <Advert advert={advert} key={advert.id}></Advert>
+            ))}
+          </CatalogWrapper>
+          {isLoadMore && (
+            <LoadMoreBtn downloadMore={onLoadMoreBtnClick}></LoadMoreBtn>
+          )}
+        </>
       )}
       {isFiltered && (
         <StyledLoadMore onClick={onGoBackClick}>

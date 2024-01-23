@@ -24,21 +24,12 @@ const Modal = ({ advert, close }) => {
   } = advert;
 
   const ref = useRef();
+
   const shortenedAddress = getCityAndCountry(address);
   const { city, country } = shortenedAddress;
-
   const rentalConditionsArray = rentalConditions.split("\n");
   const age = rentalConditionsArray[0].replace("Minimum age: ", "");
   const formattedPrice = rentalPrice.replace("$", "");
-  useEffect(() => {
-    console.log(rentalConditionsArray);
-  });
-
-  function onBackDropClick(e) {
-    if (e.target === ref.current) {
-      close(false);
-    }
-  }
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -46,6 +37,12 @@ const Modal = ({ advert, close }) => {
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  function onBackDropClick(e) {
+    if (e.target === ref.current) {
+      close(false);
+    }
+  }
 
   function useEscapeKey(close) {
     const handleEscKey = useCallback(

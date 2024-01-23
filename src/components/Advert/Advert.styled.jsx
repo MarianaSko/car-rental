@@ -4,6 +4,7 @@ export const AdvertWrapper = styled.div`
   span {
     color: #3470ff;
   }
+
   h2 {
     font-size: 16px;
     font-weight: 500;

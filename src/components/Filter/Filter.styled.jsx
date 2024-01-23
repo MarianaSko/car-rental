@@ -29,6 +29,7 @@ export const SelectContainer = styled.div`
 export const InputWrapper = styled.div`
   display: flex;
   position: relative;
+
   input {
     outline: none;
     border: none;
@@ -39,6 +40,7 @@ export const InputWrapper = styled.div`
     border-radius: 0px 14px 14px 0px;
     padding-left: 70px;
   }
+
   input:first-child {
     border-right: 1px solid rgba(138, 138, 137, 0.2);
     border-radius: 14px 0px 0px 14px;

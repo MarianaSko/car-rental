@@ -25,3 +25,17 @@ export const Container = styled.div`
   flex-direction: column;
   position: relative;
 `;
+
+export const LoaderWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(18, 20, 23, 0.5);
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

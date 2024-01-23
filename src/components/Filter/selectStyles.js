@@ -10,6 +10,7 @@ const selectStyle = {
         maxWidth: "224px",
         minWidth: '125px',
         height: "48px",
+
     }),
     singleValue: (styles) => ({
         ...styles,
@@ -39,7 +40,6 @@ const selectStyle = {
         fontWeight: "500",
         lineHeight: "1.25",
     }),
-
     option: (styles, { isFocused, isSelected }) => {
         if (isFocused) {
             return {
