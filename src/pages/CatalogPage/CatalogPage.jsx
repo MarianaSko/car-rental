@@ -45,6 +45,7 @@ const CatalogPage = () => {
     if (adverts.length !== allAdverts.length) {
       dispatch(setLoadMore(true));
     }
+    location.reload(false);
   }
 
   return (
