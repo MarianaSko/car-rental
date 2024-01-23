@@ -53,7 +53,7 @@ const Advert = ({ advert }) => {
   return (
     <AdvertWrapper>
       <AdvertItem>
-        <CatalogImg src={img} alt={make} />
+        <CatalogImg src={img} alt={make} loading="lazy" />
         <FavoriteBtn onClick={onFavoriteBtnClick}>
           {isChecked ? (
             <img src={favoriteChecked} alt="" />
